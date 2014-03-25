@@ -1,0 +1,23 @@
+{
+  "name": "test01",
+  "version": "0.0.0",
+  "description": "Тестовое задание: fs.watch, tcp server, tcp client, mysql client",
+  "main": "server.js",
+  "scripts": {
+    "test": "test.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://747500@github.com/747500/test01"
+  },
+  "author": "s.rasnikov@gmail.com",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/747500/test01/issues"
+  },
+  "dependencies": {
+    "when": "*",
+    "mysql": "*",
+    "JSONStream": "*"
+  "private": true
+}
