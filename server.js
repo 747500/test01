@@ -10,7 +10,11 @@
 	var events = require('events');
 	var mysql = require('mysql');
 
-	var connection = mysql.createConnecton({
+	process.on('disconnect', function () {
+		process.exit(0);
+	});
+
+	var connection = mysql.createConnection({
 		host: '127.0.0.1',
 		user: 'bob',
 		password: 'secret'
@@ -32,8 +36,10 @@
 	var watcher = new Watcher();
 
 	var myInsert =
-		'INSERT INTO file_events (file, change, event)' +
-		' VALUES (?, ?, ?)';
+			'INSERT INTO file_events' +
+			' (file, change, event)' +
+			' VALUES' +
+			' (?, ?, ?)';
 
 	watcher.on('changed', function (data) {
 		var query = mysql.format(myInsert, [
