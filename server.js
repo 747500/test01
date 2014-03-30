@@ -14,13 +14,13 @@
 		process.exit(0);
 	});
 
-	var connection = mysql.createConnection({
+	var pool = mysql.createPool({
 		host: '127.0.0.1',
 		user: 'bob',
 		password: 'secret'
 	});
 
-	var Watcher = function () {};
+	function Watcher() {}
 	Watcher.prototype = new events.EventEmitter();
 	Watcher.prototype.watch = function (filename) {
 		var fname = path.basename(filename);
@@ -44,7 +44,7 @@
 	watcher.on('changed', function (data) {
 		var query = mysql.format(myInsert, [
 				data.file, data.change, data.event ]);
-		connection.query(query, function (err, result) {
+		pool.query(query, function (err, result) {
 			if (err) {
 				console.warn(err.stack || err);
 			}
@@ -61,12 +61,12 @@
 		});
 	});
 
-	connection.connect(function (err) {
+	pool.getConnection(function (err, connection) {
 		if (err) {
 			console.error(err.stack || err);
 			process.exit(1);
 		}
-
+		connection.release();
 		watcher.watch(process.args[2]);
 		server.listen(25001, '127.0.0.1');
 	});
