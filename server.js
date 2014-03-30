@@ -10,15 +10,13 @@
 	var events = require('events');
 	var mysql = require('mysql');
 
+	var config = require('./config.js');
+
 	process.on('disconnect', function () {
 		process.exit(0);
 	});
 
-	var pool = mysql.createPool({
-		host: '127.0.0.1',
-		user: 'bob',
-		password: 'secret'
-	});
+	var pool = mysql.createPool(config.mysql);
 
 	function Watcher() {}
 	Watcher.prototype = new events.EventEmitter();
@@ -36,8 +34,8 @@
 	var watcher = new Watcher();
 
 	var myInsert =
-			'INSERT INTO file_events' +
-			' (file, change, event)' +
+			'INSERT INTO `file_events`' +
+			' (`file`, `change`, `event`)' +
 			' VALUES' +
 			' (?, ?, ?)';
 
@@ -67,8 +65,8 @@
 			process.exit(1);
 		}
 		connection.release();
-		watcher.watch(process.args[2]);
-		server.listen(25001, '127.0.0.1');
+		watcher.watch(process.argv[2]);
+		server.listen(config.http.port, config.http.host);
 	});
 
 })();

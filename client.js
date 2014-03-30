@@ -5,6 +5,7 @@
 
 	var net = require('net');
 	var JSONStream = require('JSONStream');
+	var config = require('./config.js');
 
 	var parser = JSONStream.parse();
 
@@ -12,6 +13,6 @@
 		console.log(JSON.stringify(data, null, 2) + '\n');
 	});
 
-	net.connect({ host: '127.0.0.1', port: 25001 }).pipe(parser);
+	net.connect(config.http).pipe(parser);
 
 })();
