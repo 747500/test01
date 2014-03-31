@@ -6,7 +6,7 @@ module.exports = {
 		password: 'secret',
 		database: 'test01'
 	},
-	http: {
+	tcp: {
 		host: '127.0.0.1',
 		port: 25001
 	}

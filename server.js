@@ -66,7 +66,7 @@
 		}
 		connection.release();
 		watcher.watch(process.argv[2]);
-		server.listen(config.http.port, config.http.host);
+		server.listen(config.tcp.port, config.tcp.host);
 	});
 
 })();

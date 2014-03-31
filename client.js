@@ -16,6 +16,6 @@
 		console.log(JSON.stringify(data, null, 2) + '\n');
 	});
 
-	net.connect(config.http).pipe(parser);
+	net.connect(config.tcp).pipe(parser);
 
 })();
