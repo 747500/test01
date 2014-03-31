@@ -7,5 +7,9 @@ test01
 
 `$ npm install`
 
+`$ mysql < dump.sql`
+
+`# mysql permission stuff`
+
 `$ npm test`
 
